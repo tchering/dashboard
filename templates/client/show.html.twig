@@ -1,0 +1,59 @@
+{% extends "base1.html.twig" %}
+
+{% block title %} CLient{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center ">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3" hidden>
+                            <label for="codeInput" class="form-label">id</label>
+                            <input type="text" class="form-control" id="codeInput" value="{{ client.id }}" {{ disabled
+                                }}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Client N°</label>
+                            <input type="text" class="form-control" id="nameInput" value="{{ client.numClient }}"
+                                {{disabled}}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressInput" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="addressInput" value="{{ client.nameClient }}"
+                                {{disabled}}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressInput" class="form-label">Adresse</label>
+                            <input type="text" class="form-control" id="addressInput" value="{{ client.adresseClient }}"
+                                {{disabled}}>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary"
+                                onclick="retour();return false;">Return</button>
+                            <button type="button" class="btn btn-primary" onclick="supprimer()">Delete</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block script %}
+<script>
+    const retour = () => {
+        document.location.href = "{{path('app_client')}}";
+    }
+
+    const supprimer = () => {
+        let response = confirm(`Do you really want to delete {{client.nameClient}} from the list?`)
+        if (response) {
+            let id = "{{client.id}}";
+            document.location.href = `/client/delete/${id}`;
+        }
+    }
+</script>
+{% endblock %}
+
+{% endblock %}

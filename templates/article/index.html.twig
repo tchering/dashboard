@@ -1,0 +1,103 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Hello ArticleController!
+{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px / 1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+</style>
+
+<div class="example-wrapper">
+
+    <table class="table">
+        <div>
+            <a href="javascript:afficher()" class="btn btn-primary btn-sm">Show</a>
+            <a href="javascript:modify()" class="btn btn-primary btn-sm">Modify</a>
+            <a href="javascript:supprimer()" class="btn btn-primary btn-sm">Delete</a>
+
+
+        </div>
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Article Number</th>
+                <th>Designation</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="tbody_article">
+            {%for article in articles%}
+            <tr>
+                <td>
+                    <input class="form-check-input" type="checkbox" id="{{article.id}}" value="{{article.id}}"
+                        name="check" onclick="onlyOne(this)" />
+                </td>
+                <td>{{article.id}}</td>
+                <td>{{article.numArticle}}</td>
+                <td>{{article.designation}}</td>
+                <td>{{article.price}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5" class="text-center">TOTAL:
+                    {{ total }}</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% block script %}
+<script>
+    const supprimer = () => {
+        let response = confirm('Do you really want to delete this article?');
+        if (response) {
+            const id = getIdChecked('check');
+            if (id == 0) {
+                alert('Please select Article to delete');
+                return;
+            } else {
+                document.location.href = `/article/delete/${id}`;
+            }
+        }
+
+    }
+    const modify = () => {
+        const id = getIdChecked('check');
+        if (id == 0) {
+            alert('Please select article');
+            return;
+        } else {
+            const url = `/article/modify/${id}`;
+            document.location.href = url;
+        }
+    }
+    const afficher = () => {
+        const id = getIdChecked('check');
+        if (id == 0) {
+            alert('Please select article');
+            return;
+        } else {
+            const url = `/article/show/${id}`;
+            document.location.href = url;
+        }
+    }
+
+    const ajouter = () => {
+        document.location.href = "{{ path('app_article_add') }}";
+    }
+</script>
+{% endblock %}
+{% endblock %}
