@@ -48,3 +48,8 @@ insert into client(num_client,name_client,adresse_client) VALUES
 insert into commande(client_id,date_commande,num_commande) values 
 (2,'2022-01-02','CMD002'),
 (3,'2022-01-03','CMD003');
+
+insert into ligne_commande(commande_id,article_id,quantity,price) values 
+(4,3,2,30),
+(6,4,3,40);
+```

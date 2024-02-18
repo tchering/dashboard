@@ -13,7 +13,7 @@
             </div>
             <div class="col col-6 ">
                 <div class="form-input" id="input">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" value="{{commande.numCommande}}" disabled>
                 </div>
             </div>
             <!-- this is for date -->
@@ -24,7 +24,7 @@
             </div>
             <div class="col col-6 ">
                 <div class="form-input" id="input">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" value="{{commande.dateCommande|date('d/M/Y')}}" disabled>
                 </div>
             </div>
             <!-- this is for client name  -->
@@ -35,7 +35,7 @@
             </div>
             <div class="col col-6 ">
                 <div class="form-input" id="input">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" value="{{commande.client.nameClient}}" disabled>
                 </div>
             </div>
         </div>
@@ -43,14 +43,67 @@
     <div class="col col-12 col-md-8 col-lg-5">
         <p id="total"
             class="w100 fs-1 bg-light  text-dark h-100 radius-10 right d-flex align-items-center justify-content-center">
-            Total</p>
+            {{total~" €"}}</p>
     </div>
 </div>
-<div class="row mt-3 p-3">
-    hello
-</div>
+<table class="table mt-3 p-3 w-100">
+    <thead>
+        <tr class="fs-6">
+            <th>CODE</th>
+            <th>DESIGNATION</th>
+            <th>PU</th>
+            <th>QTY</th>
+            <th>TOTAL</th>
+        </tr>
+        <tr class="">
+            <th class=""><input onkeydown="searchCode(event)" type="text" id="numArticle" value="" name="numArticle"
+                    class="form-control w100">
+            </th>
+            <th id="designation"></th>
+            <th id="price" class=""></th>
+            <th class=""><input onkeydown="valider(event)" type="text" id="quantite" name="quantite" value=""
+                    class="form-control w100 right">
+            </th>
+            <th class="right">
+                <button type="submit" class="btn btn-primary btn-sm w-90">Valider</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{row.numArticle}}</td>
+            <td>{{row.designation}}</td>
+            <td>{{row.price}}</td>
+            <td>{{row.quantity}}</td>
+            <td>{{row.total}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% block script %}
-<script></script>
+<script>
+    url_search_code = "{{path('app_commande_search_code')}}";
+    function searchCode(event) {
+        if (event.key == 'Enter') {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url_search_code);
+            let data = new FormData();
+            data.append("numArticle", document.getElementById('numArticle').value);
+            xhr.send(data);
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    let response = xhr.responseText;
+                    const article = JSON.parse(response);
+                    if (article) {
+                        document.getElementById('designation').innerHTML = article.designation;
+                        document.getElementById('price').innerHTML = article.price;
+                    }
+                }
+            }
+        }
+    }
+</script>
 {% endblock %}
 {% endblock %}
