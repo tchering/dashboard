@@ -25,6 +25,15 @@ class CommandeController extends AbstractController
         ]);
     }
 
+
+    #[Route('/ligne_commande/content/{id}', name: 'app_commande_content')]
+    public function ligneCommande(): Response
+    {
+        return $this->render('commande/ligne_commande.html.twig', [
+            'title' => 'Detail Invoice',
+        ]);
+    }
+
     #[Route('/commande/show/{id}', name: 'app_commande_show')]
     public function show(CommandeRepository $cr, $id): Response
     {
@@ -45,35 +54,35 @@ class CommandeController extends AbstractController
         return $this->redirectToRoute('app_commande');
     }
 
-    #[Route('/commande/add',name:'app_commande_add')]
-    public function add(EntityManagerInterface $em,Request $request):Response
+    #[Route('/commande/add', name: 'app_commande_add')]
+    public function add(EntityManagerInterface $em, Request $request): Response
     {
         $commande = new Commande();
-        $form = $this->createForm(CommandeType::class,$commande);
+        $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($commande);
             $em->flush();
             return $this->redirectToRoute("app_commande");
         }
 
-        return $this->render("commande/form.html.twig",[
-            'title'=>"Add New Commande",
-            'form'=>$form->createView(),
+        return $this->render("commande/form.html.twig", [
+            'title' => "Add New Commande",
+            'form' => $form->createView(),
         ]);
     }
-    #[Route('/commande/modify/{id}',name:'app_commande_modify')]
-    public function edit(EntityManagerInterface $em,Request $request,$id,Commande $commande):Response
+    #[Route('/commande/modify/{id}', name: 'app_commande_modify')]
+    public function edit(EntityManagerInterface $em, Request $request, $id, Commande $commande): Response
     {
-        $form = $this->createForm(CommandeType::class,$commande);
+        $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             return $this->redirectToRoute('app_commande');
         }
-        return $this->render("commande/form.html.twig",[
-            'title'=>'Modify Commande',
-            'form'=>$form->createView(),
+        return $this->render("commande/form.html.twig", [
+            'title' => 'Modify Commande',
+            'form' => $form->createView(),
         ]);
     }
 }

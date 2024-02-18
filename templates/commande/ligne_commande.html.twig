@@ -1,0 +1,56 @@
+{% extends "base1.html.twig" %}
+{% block title %}Ligne Commande
+{% endblock %}
+{% block body %}
+<div class="row d-flex justify-content-between p-2">
+    <div class="col col-12 col-md-8 col-lg-7">
+        <div class="row h-100 fs-3">
+            <!-- this is for Commande number -->
+            <div class="col col-5  text-center">
+                <div class="label">
+                    <label for="input">Com N°</label>
+                </div>
+            </div>
+            <div class="col col-6 ">
+                <div class="form-input" id="input">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <!-- this is for date -->
+            <div class="col col-5  text-center">
+                <div class="label">
+                    <label for="input">Date</label>
+                </div>
+            </div>
+            <div class="col col-6 ">
+                <div class="form-input" id="input">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <!-- this is for client name  -->
+            <div class="col col-5  text-center">
+                <div class="label">
+                    <label for="input">Client</label>
+                </div>
+            </div>
+            <div class="col col-6 ">
+                <div class="form-input" id="input">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-12 col-md-8 col-lg-5">
+        <p id="total"
+            class="w100 fs-1 bg-light  text-dark h-100 radius-10 right d-flex align-items-center justify-content-center">
+            Total</p>
+    </div>
+</div>
+<div class="row mt-3 p-3">
+    hello
+</div>
+
+{% block script %}
+<script></script>
+{% endblock %}
+{% endblock %}
