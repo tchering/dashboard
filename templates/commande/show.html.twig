@@ -1,0 +1,65 @@
+{% extends "base1.html.twig" %}
+
+{% block title %}Detail Commande
+{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center ">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3" hidden>
+                            <label for="codeInput" class="form-label">id</label>
+                            <input type="text" class="form-control" id="codeInput" value="{{ commande.id }}" {{ disabled
+                                }}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Commande N°</label>
+                            <input type="text" class="form-control" id="nameInput" value="{{ commande.numCommande }}"
+                                {{disabled}}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressInput" class="form-label">Date</label>
+                            <input type="text" class="form-control" id="addressInput"
+                                value="{{ commande.dateCommande|date('Y-m-d H:i:s')}}" {{disabled}}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressInput" class="form-label">Client</label>
+                            <input type="text" class="form-control" id="addressInput"
+                                value="{{ commande.client.nameClient }}" {{disabled}}>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressInput" class="form-label">Adresse</label>
+                            <input type="text" class="form-control" id="addressInput"
+                                value="{{ commande.client.adresseClient }}" {{disabled}}>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary"
+                                onclick="retour();return false;">Return</button>
+                            <button type="button" class="btn btn-primary" onclick="supprimer()">Delete</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block script %}
+<script>
+    function retour() {
+        document.location.href = "{{ path('app_commande') }}";
+    }
+
+    function supprimer(){
+        let id = "{{commande.id}}";
+        const response = confirm('Do you really want to delete this commande?');
+        if(response){
+            document.location.href = `/commande/delete/${id}`;
+        }
+    }
+</script>
+{% endblock %}
+
+{% endblock %}

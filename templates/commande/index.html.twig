@@ -1,33 +1,39 @@
 {% extends 'base1.html.twig' %}
 
-{% block title %}Hello CommandeController!{% endblock %}
+{% block title %}Hello CommandeController!
+{% endblock %}
 
 {% block body %}
 
 
 <div class="example-wrapper">
+    <div>
+        <a class="btn btn-primary btn-sm" href="javascript:show()">Detail</a>
+        <a href="" class="btn btn-sm btn-primary">Contenu
+            <i class="fab fa-connect"></i>
+        </a>
+        <a class="btn btn-success btn-sm" href="javascript:modify()">Modification</a>
+    </div>
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>ID</th>
+                <th>Client</th>
                 <th>Date</th>
                 <th>Num</th>
-                <th>Action</th>
+
             </tr>
         </thead>
         <tbody>
             {% for commande in commandes %}
             <tr>
+                <td><input type="checkbox" class="form-check-input" id="{{commande.id}}" value="{{commande.id}}"
+                        name="check" onclick="onlyOne(this)"></td>
                 <td>{{commande.id}}</td>
+                <td>{{commande.client.nameClient}}</td>
                 <td>{{ commande.dateCommande|date('Y-m-d H:i:s') }}</td>
                 <td>{{commande.numCommande}}</td>
-                <td>
-                    <a class="btn btn-primary btn-sm" href="">Affichage</a>
-                    <a href="" class="btn btn-sm btn-primary">Contenu
-                        <i class="fab fa-connect"></i>
-                    </a>
-                    <a class="btn btn-success btn-sm" href="">Modification</a>
-                </td>
 
             </tr>
             {% endfor %}
@@ -35,6 +41,28 @@
         <tfoot></tfoot>
 
     </table>
-
+    {% block script %}
+    <script>
+        const show = () => {
+            const id = getIdChecked('check');
+            if (id == 0) {
+                alert('Please select commande to get the detail');
+            } else {
+                document.location.href = `/commande/show/${id}`;
+            }
+        }
+        const ajouter = () => {
+            document.location.href = "{{path('app_commande_add')}}";
+        }
+        const modify = () => {
+            let id = getIdChecked('check');
+            if(id == 0){
+                alert('Please select the commande to modify');
+            } else {
+                document.location.href = `/commande/modify/${id}`;
+            }
+        }
+    </script>
+    {% endblock %}
 </div>
 {% endblock %}
