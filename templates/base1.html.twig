@@ -50,35 +50,42 @@
 								<i class="fa fa-house-chimney-window"></i>
 							</a>
 						</li>
-						<li>
-							<a class="nav-link text-dark" href="/client">Client
-								<i class="fa fa-user-group"></i>
-							</a>
-						</li>
-						<li>
-							<a class="nav-link text-dark" href="/article">Article
-								<i class="fa fa-newspaper"></i>
-							</a>
-						</li>
-						<!-- This will be secton for commande dropdown  -->
-						<a class="dropdown">
-							<a class=" dropdown-toggle text-dark" href="" role="button" id="dropdownMenuLink" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
-								Commande
-								<i class="fas fa-truck"></i>
-							</a>
+						{% if (is_granted('ROLE_DEPOT')) %}
 
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<li>
-									<a class="dropdown-item" href="#">Devis</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{{path('app_commande')}}">Invoice</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#">Delivery</a>
-								</li>
-							</ul>
-						</a>
+							<li>
+								<a class="nav-link text-dark" href="/client">Client
+									<i class="fa fa-user-group"></i>
+								</a>
+							</li>
+						{% endif %}
+						{% if (is_granted('ROLE_ASSISTANT')) %}
+							<li>
+								<a class="nav-link text-dark" href="/article">Article
+									<i class="fa fa-newspaper"></i>
+								</a>
+							</li>
+						{% endif %}
+						{% if (is_granted('ROLE_CAISSE')) %}
+
+							<a class="dropdown">
+								<a class=" dropdown-toggle text-dark" href="" role="button" id="dropdownMenuLink" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
+									Commande
+									<i class="fas fa-truck"></i>
+								</a>
+
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li>
+										<a class="dropdown-item" href="#">Devis</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{path('app_commande')}}">Invoice</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#">Delivery</a>
+									</li>
+								</ul>
+							</a>
+						{% endif %}
 						{% if(is_granted('ROLE_ADMIN'))%}
 							<li class="dropdown">
 								<a class=" dropdown text-dark" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
