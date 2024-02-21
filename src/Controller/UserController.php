@@ -72,7 +72,7 @@ class UserController extends AbstractController
         }
         $form = $this->createForm(UserType::class, $user);
         //todo 3rd. Now we need to add this roles field in the form show user can select the role.
-        $form->add('roles',ChoiceType::class,[ //? here 'roles' is the column in table user in database not $roles=[].
+        $form->add('roles',ChoiceType::class,[ //? here 'roles' is the column in table  $roles=[].
             'choices'=>$roles,
             'multiple'=>true,
             // 'expanded'=>true
@@ -80,8 +80,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //!When user register then password will be hashed but here will are modifying,creating user as admin so password is not hased. Therefore we need to use method to hash password.
-            //todo here $form is the instance of form class which is inside Vendor and getDate is method inside this class.
+            //!When user register then password will be hashed but here we are modifying,creating user as admin so password is not hased. Therefore we need to use method to hash password.
+            //todo here $form is the instance of form class which is inside Vendor and getData is method inside this class.
             //todo so when user enter password in field then this method below capture the password and stores it inside $plainPassword.
             $plainPassword = $form->get('plainPassword')->getData();
             if($plainPassword){
