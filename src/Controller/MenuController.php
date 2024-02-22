@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Menu;
+use App\Form\MenuType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class MenuController extends AbstractController
 {
@@ -52,5 +54,45 @@ class MenuController extends AbstractController
             }
         }
         return $html;
+    }
+#[Route('/menu/show/{id}',name:'app_menu_show')]
+    public function show(EntityManagerInterface $em,$id):Response{
+        $menu = $em->getRepository(Menu::class)->find($id) ;
+        return $this->render('menu/show.html.twig',[
+            'menu'=>$menu,
+            'title'=>'Menu Detail',
+            'disabled'=>'disabled',
+        ]);
+    }
+    #[Route('/menu/delete/{id}',name:'app_menu_delete')]
+    public function delete(EntityManagerInterface $em,$id):Response
+    {
+        $menu = $em->getRepository(Menu::class)->find($id);
+        $em->remove($menu);
+        $em->flush();
+        return $this->redirectToRoute('app_menu');
+    }
+
+    #[Route('/menu/edit/{id}',name:'app_menu_edit')]
+    public function edit(EntityManagerInterface $em,$id,Request $request):Response
+    {
+        $id = (int)$id;
+        if($id==0){
+            $menu = new Menu();
+        } else {
+            $menu = $em->getRepository(Menu::class)->find($id);
+        }
+        $form = $this->createForm(MenuType::class,$menu);
+        $form->handleRequest($request);
+        if($form->isSubmitted()&& $form->isValid()){
+            $em->persist($menu);
+            $em->flush();
+            return $this->redirectToRoute('app_menu');
+        }
+
+        return $this->render('menu/form.html.twig',[
+            'title'=>'Modify Menu',
+            'form'=>$form->createView()
+        ]);
     }
 }

@@ -21,7 +21,8 @@ class MenuType extends AbstractType
             ->add('role',TextType::class)
             ->add('parent', EntityType::class, [
                 'class' => Menu::class,
-                'choice_label' => 'id',
+                'choice_label' => 'libelle',
+                'required'=>false
             ]);
     }
 

@@ -38,10 +38,14 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/depot, roles: ROLE_DEPOT }
-        - { path: ^/caisse, roles: ROLE_CAISSE }
-        - { path: ^/profile, roles: ROLE_USER }
-    access_denied_url: app_error
+        - { path: ^/user, roles: ROLE_ADMIN }
+        - { path: ^/commande, roles: ROLE_ADMIN }
+        - { path: ^/client, roles: ROLE_ADMIN }
+        - { path: ^/article, roles: ROLE_ADMIN }
+        - { path: ^/role, roles: ROLE_ADMIN }
+        - { path: ^/menu, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+    access_denied_url: app_home
 
 when@test:
     security:

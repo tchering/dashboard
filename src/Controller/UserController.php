@@ -71,8 +71,9 @@ class UserController extends AbstractController
             //!NOTE:If you see in userType it is same sauf here its dynamic.
         }
         $form = $this->createForm(UserType::class, $user);
+        //! this role is from another entity Role which we added in user show .
         //todo 3rd. Now we need to add this roles field in the form show user can select the role.
-        $form->add('roles',ChoiceType::class,[ //? here 'roles' is the column in table  $roles=[].
+        $form->add('roles',ChoiceType::class,[ //? here 'roles' is the column in table  $roles=[]. 
             'choices'=>$roles,
             'multiple'=>true,
             // 'expanded'=>true
