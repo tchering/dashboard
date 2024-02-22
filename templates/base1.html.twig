@@ -44,68 +44,7 @@
 				<div
 					class="collapse navbar-collapse" id="navbarButtonsExample">
 					<!-- Left links -->
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
-						<li class="nav-item">
-							<a class="nav-link text-dark" aria-current="page" href="{{path('app_home')}}">Home
-								<i class="fa fa-house-chimney-window"></i>
-							</a>
-						</li>
-						{# {% if (is_granted('ROLE_DEPOT')) %} #}
-
-							<li>
-								<a class="nav-link text-dark" href="/client">Client
-									<i class="fa fa-user-group"></i>
-								</a>
-							</li>
-						{# {% endif %} #}
-						{# {% if (is_granted('ROLE_ASSISTANT')) %} #}
-							<li>
-								<a class="nav-link text-dark" href="/article">Article
-									<i class="fa fa-newspaper"></i>
-								</a>
-							</li>
-						{# {% endif %} #}
-						{# {% if (is_granted('ROLE_CAISSE')) %} #}
-
-							<a class="dropdown">
-								<a class=" dropdown-toggle text-dark" href="" role="button" id="dropdownMenuLink" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
-									Commande
-									<i class="fas fa-truck"></i>
-								</a>
-
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<li>
-										<a class="dropdown-item" href="#">Devis</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{path('app_commande')}}">Invoice</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="#">Delivery</a>
-									</li>
-								</ul>
-							</a>
-						{# {% endif %} #}
-						{# {% if(is_granted('ROLE_ADMIN'))%} #}
-							<li class="dropdown">
-								<a class=" dropdown text-dark" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
-									Parameter
-									<i class="fa fa-gear"></i>
-								</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a class="dropdown-item" href="/user">User</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="/role">Role</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="/menu">Menu</a>
-									</li>
-								</ul>
-							</li>
-						{# {% endif %} #}
-					</ul>
+					{{render(url('app_menu_dynamique'))}}
 					<!-- Left links -->
 
 					{% if app.user.username is defined %}
