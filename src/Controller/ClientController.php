@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 
 class ClientController extends AbstractController
 {
@@ -67,7 +68,7 @@ class ClientController extends AbstractController
     {
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             return $this->redirectToRoute('app_client');
@@ -78,5 +79,26 @@ class ClientController extends AbstractController
             'title' => "Modify Client",
             'form' => $form->createView(),
         ]);
+    }
+    #[Route('client/search', name: 'app_client_search')]
+    public function search(Request $request, EntityManagerInterface $em)
+    {
+        $mot = $request->get('mot');
+        $clients = $em->getRepository(Client::class)->searchMot($mot);
+        $rows = [];
+        foreach ($clients as $client) {
+            $rows[] = [
+                'id' => $client->getId(),
+                'numClient' => $client->getNumClient(),
+                'nameClient' => $client->getNameClient(),
+                'adresseClient' => $client->getAdresseClient(),
+            ];
+        }
+        $response = [
+            'rows' => $rows,
+            'total' => count($clients)
+        ];
+        echo json_encode($response);
+        exit;
     }
 }

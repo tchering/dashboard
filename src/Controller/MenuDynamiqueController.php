@@ -22,7 +22,6 @@ class MenuDynamiqueController extends AbstractController
             'title' => 'Menu'
         ]);
     }
-
     public function show_menu($ugi, $parentId, $niveau, $menus)
     {
         $html = "";
@@ -31,7 +30,6 @@ class MenuDynamiqueController extends AbstractController
         if ($niveau_precedent == 0 && $niveau == 0) {
             $html .= "<ul class='navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center align-items-center'>";
         }
-
         foreach ($menus as $menu) {
             $id = $menu->getId();
             $rang = $menu->getRang();
@@ -44,29 +42,24 @@ class MenuDynamiqueController extends AbstractController
             } catch (\Throwable $th) {
                 $href = $url;
             }
-
             $icon = $menu->getIcon();
             $icon = ($icon) ? "<i class='$icon'></i>" : "";
             $parentMenuId = $menu->getParent();
             $enfants = $menu->getMenus();
             $nbreEnfants = count($enfants);
-
             if ($parentMenuId == $parentId) {
                 if ($niveau_precedent < $niveau) {
                     $html .= "<ul class='dropdown-menu'>";
                 }
-
                 if ($nbreEnfants != 0) {
                     $html .= "<li class='dropdown'><a class='dropdown-toggle text-dark' href='$href' role='button' id='dropdownMenuLink' data-mdb-dropdown-init data-mdb-ripple-init aria-expanded='false'>$libelle $icon</a>";
                 } else {
                     $html .= "<li class='nav-item'><a class='nav-link text-dark' aria-current='page' href='$href'>$icon $libelle</a>";
                 }
-
                 $niveau_precedent = $niveau;
                 $html .= $this->show_menu($ugi, $menu, $niveau + 1, $menus);
             }
         }
-
         if ($niveau_precedent == 0 && $niveau == 0) {
             $html .= "</ul>";
         } elseif ($niveau_precedent == $niveau) {
@@ -74,7 +67,6 @@ class MenuDynamiqueController extends AbstractController
         } else {
             $html .= "</li>";
         }
-
         return $html;
     }
 }

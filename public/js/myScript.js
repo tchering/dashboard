@@ -23,23 +23,31 @@ function previewImage(event, id_image) {
     elt_image.src = URL.createObjectURL(image);
   }
 }
-function getIdChecked(name_element){
-  let checkboxes=document.getElementsByName(name_element);
-    let id=0;
-  checkboxes.forEach((item)=>{
-      if(item.checked==true) {
-          id=item.value;
-          stop;
-      }
+function getIdChecked(name_element) {
+  let checkboxes = document.getElementsByName(name_element);
+  let id = 0;
+  checkboxes.forEach((item) => {
+    if (item.checked == true) {
+      id = item.value;
+      stop;
+    }
   });
   return id;
 }
-function onlyOne(checkbox){  //  checkbox est l'element où on a cliqué
-  let checkboxes=document.getElementsByName(checkbox.name);
-  checkboxes.forEach(function(item){
-          if(item!=checkbox){  // tester si item l'un des elements de checkboxes est different de checkbox selectionnée
-              item.checked=false;
-          }
+function onlyOne(checkbox) {
+  //  checkbox est l'element où on a cliqué
+  let checkboxes = document.getElementsByName(checkbox.name);
+  checkboxes.forEach(function (item) {
+    if (item != checkbox) {
+      // tester si item l'un des elements de checkboxes est different de checkbox selectionnée
+      item.checked = false;
+    }
   });
-  checkbox.checked=true;
+  checkbox.checked = true;
 }
+
+const touche = (event) => {
+  if (event.key === "Enter") {
+    search();
+  }
+};

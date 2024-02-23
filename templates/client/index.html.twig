@@ -22,7 +22,7 @@
                 <th>Adresse</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tbody_client">
             {% for client in clients %}
             <tr>
                 <td><input type="checkbox" class="form-check-input" value="{{client.id}}" id="{{client.id}}"
@@ -36,7 +36,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th colspan="5" class="text-center">Total: {{total}}</th>
+                <th colspan="5" class="text-center" id="count">Total: {{total}}</th>
             </tr>
         </tfoot>
     </table>
@@ -44,14 +44,14 @@
 {% block script %}
 <script>
     const ajouter = () => {
-      document.location.href = "{{path('app_client_add')}}";
+        document.location.href = "{{path('app_client_add')}}";
     }
 
-    const supprimer = () =>{
+    const supprimer = () => {
         let response = confirm('Do you really want to delete this client?');
-        if(response){
+        if (response) {
             let id = getIdChecked('check');
-            if(id==0){
+            if (id == 0) {
                 alert('Please select client you want to delete');
             } else {
                 document.location.href = `/client/delete/${id}`;
@@ -61,10 +61,10 @@
 
     const modify = () => {
         let id = getIdChecked('check');
-        if(id == 0){
+        if (id == 0) {
             alert('Please select the client to modify');
         } else {
-            document.location.url= `/client/modify/${id}`;
+            document.location.url = `/client/modify/${id}`;
         }
     }
 
@@ -75,6 +75,38 @@
         } else {
             document.location.href = `/client/show/${id}`;
         }
+    }
+
+    const url = "{{path('app_client_search')}}";
+    const search = () => {
+        let mot = document.getElementById('mot');
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        let data = new FormData();
+        data.append('mot', mot.value)
+        xhr.onload = () => {
+            let response = xhr.responseText;
+            response = JSON.parse(response);
+            const clients = response['rows'];
+            const count = response['total'];
+            const html = clients.map((client) => {
+                return `
+                <tr>
+                <td><input type="checkbox" class="form-check-input" value="${client.id}" id="${client.id}"
+                        name="check" onclick="onlyOne(this)"></td>
+                <td>${client.id}</td>
+                <td>${client.numClient}</td>
+                <td>${client.nameClient}</td>
+                <td>${client.adresseClient}</td>
+            </tr>
+                `;
+            }).join('');
+            document.getElementById('tbody_client').innerHTML = html;
+            document.getElementById('count').innerHTML = `Total Clients : ${count}`;
+            mot.value = '';
+
+        }
+        xhr.send(data);
     }
 
 </script>
