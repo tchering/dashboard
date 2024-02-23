@@ -1,140 +1,148 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Dashboard</title>
-		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/loginRegister.css') }}">
-		<link rel="stylesheet" href="{{asset('fontawesome-free-6.5.1-web/css/all.css')}}">
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
-		<link
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" defer/>
-		<!-- Google Fonts -->
-		<link
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-		<!-- MDB -->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet" defer/>
-		<script src="{{ asset('js/myScript.js') }}" defer></script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/button.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/loginRegister.css') }}">
+	<link rel="stylesheet" href="{{asset('fontawesome-free-6.5.1-web/css/all.css')}}">
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" defer />
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<!-- MDB -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet" defer />
+	<script src="{{ asset('js/myScript.js') }}" defer></script>
 
 
-		<link rel="icon" href="{{ asset('img/dashboard.png') }}" type="image/x-icon">
-	</head>
+	<link rel="icon" href="{{ asset('img/dashboard.png') }}" type="image/x-icon">
+</head>
 
-	<body>
+<body>
 
-		<!-- navigation bar -->
-		<!-- Navbar -->
-			<nav
-			class="navbar fixed-top navbar-expand-lg navbar-light bg-body-tertiary"> <!-- Container wrapper -->
-			<div
-				class="container">
-				<!-- Navbar brand -->
-				<a class="navbar-brand me-2" href="">
-					<i class="fab fa-canadian-maple-leaf fa-2x"></i>
-				</a>
+	<!-- navigation bar -->
+	<!-- Navbar -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-body-tertiary"> <!-- Container wrapper -->
+		<div class="container">
+			<!-- Navbar brand -->
+			<a class="navbar-brand me-2" href="">
+				<i class="fab fa-canadian-maple-leaf fa-2x"></i>
+			</a>
 
-				<!-- Toggle button -->
-				<button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
-					<i class="fas fa-bars"></i>
-				</button>
+			<!-- Toggle button -->
+			<button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target="#navbarButtonsExample"
+				aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fas fa-bars"></i>
+			</button>
 
+			<!-- Collapsible wrapper -->
+			<div class="collapse navbar-collapse" id="navbarButtonsExample">
+				<!-- Left links -->
+				{{render(url('app_menu_dynamique'))}}
+				<!-- Left links -->
+
+				{% if app.user.username is defined %}
+
+				<div class="d-flex align-items-center">
+					<a href="/login" data-mdb-ripple-init type="button" class="btn text-success btn-link px-3 me-2">
+						Dashboard
+					</a>
+					<a href="{{path('app_logout')}}" data-mdb-ripple-init type="button" class="btn btn-success me-3">
+						Logout
+					</a>
+				</div>
+				<div class="input-group w-25">
+					<div class="form-outline" data-mdb-input-init>
+						<input type="search" onkeydown="touche(event)" id="mot" name="mot" class="form-control" />
+						<label class="form-label" for="form1">Search</label>
+					</div>
+					<button onclick="search()" id="search-button" type="button" class="btn btn-primary">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+				{% else %}
+				<div class="d-flex align-items-center">
+					<a href="/login" data-mdb-ripple-init type="button" class="btn text-success btn-link px-3 me-2">
+						Login
+					</a>
+					<a href="{{path('app_register')}}" data-mdb-ripple-init type="button" class="btn btn-success me-3">
+						Register
+					</a>
+					<div class="input-group w-25">
+						<div class="form-outline" data-mdb-input-init>
+							<input type="search" onkeydown="touche(event)" id="mot" name="mot" class="form-control" />
+							<label class="form-label" for="form1">Search</label>
+						</div>
+						<button id="search-button" onclick="search()" type="button" class="btn btn-primary">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
+				</div>
+				{% endif %}
 				<!-- Collapsible wrapper -->
-				<div
-					class="collapse navbar-collapse" id="navbarButtonsExample">
-					<!-- Left links -->
-					{{render(url('app_menu_dynamique'))}}
-					<!-- Left links -->
-
-					{% if app.user.username is defined %}
-
-						<div class="d-flex align-items-center">
-							<a href="/login" data-mdb-ripple-init type="button" class="btn text-success btn-link px-3 me-2">
-								Dashboard
-							</a>
-							<a href="{{path('app_logout')}}" data-mdb-ripple-init type="button" class="btn btn-success me-3">
-								Logout
-							</a>
-						</div>
-						<div class="input-group w-25">
-							<div class="form-outline" data-mdb-input-init>
-								<input type="search" onkeydown="touche(event)" id="mot" name="mot" class="form-control"/>
-								<label class="form-label" for="form1">Search</label>
-							</div>
-							<button onclick="search()" id="search-button" type="button" class="btn btn-primary">
-								<i class="fas fa-search"></i>
-							</button>
-						</div>
-					{% else %}
-						<div class="d-flex align-items-center">
-							<a href="/login" data-mdb-ripple-init type="button" class="btn text-success btn-link px-3 me-2">
-								Login
-							</a>
-							<a href="{{path('app_register')}}" data-mdb-ripple-init type="button" class="btn btn-success me-3">
-								Register
-							</a>
-							<div class="input-group w-25">
-								<div class="form-outline" data-mdb-input-init>
-									<input type="search" onkeydown="touche(event)" id="mot" name="mot" class="form-control"/>
-									<label class="form-label" for="form1">Search</label>
-								</div>
-								<button id="search-button" onclick="search()" type="button" class="btn btn-primary">
-									<i class="fas fa-search"></i>
-								</button>
-							</div>
-						</div>
-					{% endif %}
-					<!-- Collapsible wrapper -->
-				</div>
-				<!-- Container wrapper -->
-			</nav>
-			<section id="intro">
-				<div class="container-fluid mtop-4">
-					<div class="row section-intro align-items-center p-4 justify-content-between">
-						<div class="col-sm-12 col-md-12 col-lg-4 left-box text-center ">
-							<h1 class="section-intro-heading">
-								<div class="display-3"></i>
-							</div>
-							<div class="display-6 text-muted"></div>
-						</h1>
-						<div class="d-flex flex-column">
-							<h1>{{title}}</h1>
-							<a href="javascript:ajouter()" id="add" class="w50 m-auto btn-lg btn-success">Ajouter
-								<i class="fa fa-add"></i>
-							</a>
-						</div>
-
-					</div>
-					<div class="right-box col-sm-12 col-md-12 col-lg-8 mt-sm-2 mt-md-2">
-
-						{% block body%}
-						{%endblock%}
-
-					</div>
-
-				</div>
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<li class="page-item disabled">
-							<a class="page-link">Previous</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">1</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">3</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">Next</a>
-						</li>
-					</ul>
-				</nav>
 			</div>
-			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
-		</body>
-	</body>
+			<!-- Container wrapper -->
+	</nav>
+	<section id="intro">
+		<div class="container-fluid mtop-4">
+			<div class="row section-intro align-items-center p-4 justify-content-between">
+				<div class="col-sm-12 col-md-12 col-lg-4 left-box text-center ">
+					<h1 class="section-intro-heading">
+						<div class="display-3"></i>
+						</div>
+						<div class="display-6 text-muted"></div>
+					</h1>
+					<div class="d-flex flex-column">
+						<h1>{{title}}</h1>
+						<!-- <a href="javascript:ajouter()" id="add" class="w50 m-auto btn-lg btn-success">Ajouter
+							<i class="fa fa-add"></i>
+						</a> -->
+						<a href="javascript:ajouter()" class="button-82-pushable" role="button">
+							<span class="button-82-shadow"></span>
+							<span class="button-82-edge"></span>
+							<span class="button-82-front text">
+								Ajouter
+							</span>
+						</a>
+
+					</div>
+
+				</div>
+				<div class="right-box col-sm-12 col-md-12 col-lg-8 mt-sm-2 mt-md-2">
+
+					{% block body%}
+					{%endblock%}
+
+				</div>
+
+			</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item disabled">
+						<a class="page-link">Previous</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">1</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">2</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">3</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<script type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
+</body>
+</body>
+
 </html>
