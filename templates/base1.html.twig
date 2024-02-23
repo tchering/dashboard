@@ -56,15 +56,15 @@
 							<a href="{{path('app_logout')}}" data-mdb-ripple-init type="button" class="btn btn-success me-3">
 								Logout
 							</a>
-							<div class="input-group w-25">
-								<div class="form-outline" data-mdb-input-init>
-									<input type="search" onkeydown="touche(event)" id="mot" name="mot" class="form-control"/>
-									<label class="form-label" for="form1">Search</label>
-								</div>
-								<button onclick="search()" id="search-button" type="button" class="btn btn-primary">
-									<i class="fas fa-search"></i>
-								</button>
+						</div>
+						<div class="input-group w-25">
+							<div class="form-outline" data-mdb-input-init>
+								<input type="search" onkeydown="touche(event)" id="mot" name="mot" class="form-control"/>
+								<label class="form-label" for="form1">Search</label>
 							</div>
+							<button onclick="search()" id="search-button" type="button" class="btn btn-primary">
+								<i class="fas fa-search"></i>
+							</button>
 						</div>
 					{% else %}
 						<div class="d-flex align-items-center">

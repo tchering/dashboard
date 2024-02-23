@@ -55,15 +55,15 @@
 							<a href="{{path('app_logout')}}" data-mdb-ripple-init type="button" class="btn btn-success me-3">
 								Logout
 							</a>
-							<div class="input-group w-25">
-								<div class="form-outline" data-mdb-input-init>
-									<input id="mot" name="mot" onKeyDown="" type="search" id="form1" class="form-control"/>
-									<label class="form-label" for="form1">Search</label>
-								</div>
-								<a href="" id="search-button" type="button" class="btn btn-primary">
-									<i class="fas fa-search"></i>
-								</a>
+						</div>
+						<div class="input-group w-25">
+							<div class="form-outline" data-mdb-input-init>
+								<input id="mot" name="mot" onkeydown="" type="search" id="form1" class="form-control"/>
+								<label class="form-label" for="form1">Search</label>
 							</div>
+							<a href="" id="search-button" type="button" class="btn btn-primary">
+								<i class="fas fa-search"></i>
+							</a>
 						</div>
 					{% else %}
 						<div class="d-flex align-items-center">
@@ -227,7 +227,7 @@
 	<span class="carousel-control-next-icon" aria-hidden="true"></span>
 	<span class="visually-hidden">Next</span>
 </button></div><!-- Marketing messaging and featurettes
-																											      ================================================== --><!-- Wrap the rest of the page in another container to center all the content. --><div
+																												      ================================================== --><!-- Wrap the rest of the page in another container to center all the content. --><div
 class="container marketing">
 
 <!-- Three columns of text below the carousel -->
@@ -237,7 +237,7 @@ class="container marketing">
 
 		<h2>Admin Dashboard</h2>
 		<p>This project provides an admin dashboard with a user management system. Admins can add, delete, and
-																modify users.</p>
+																			modify users.</p>
 		<p>
 			<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
 		</p>
@@ -248,7 +248,7 @@ class="container marketing">
 
 		<h2>MVC Architecture</h2>
 		<p>The project is built using the MVC (Model-View-Controller) architecture, allowing for organized and
-																efficient code management.</p>
+																			efficient code management.</p>
 		<p>
 			<a class="btn btn-secondary" href="#" role="button">Comming Soon &raquo;</a>
 		</p>
@@ -260,7 +260,7 @@ class="container marketing">
 
 		<h2>Role-Based Access</h2>
 		<p>Users are assigned roles upon signup. Only admins can change user roles, ensuring secure access
-																control.</p>
+																			control.</p>
 		<p>
 			<a class="btn btn-secondary" href="#" role="button">Comming Soon &raquo;</a>
 		</p>
@@ -279,7 +279,7 @@ class="container marketing">
 			<span class="text-muted">Efficient data management.</span>
 		</h2>
 		<p class="lead">The admin dashboard supports CRUD (Create, Read, Update, Delete) operations, making user
-																and data management efficient and straightforward.</p>
+																			and data management efficient and straightforward.</p>
 	</div>
 	<div class="col-md-5">
 		<img src="{{asset('img/crud.jpg')}}" alt="" width="500px" height="500px" class="img-fluid">
@@ -297,7 +297,7 @@ class="featurette-divider">
 			<span class="text-muted">Coming soon.</span>
 		</h2>
 		<p class="lead">The controllers for Client and Article have not been updated yet. These updates are
-																planned for the near future to enhance the functionality of the system.</p>
+																			planned for the near future to enhance the functionality of the system.</p>
 	</div>
 	<div class="col-md-5 order-md-1">
 		<img src="{{asset('img/controller.jpg')}}" alt="" width="500px" height="500px" class="img-fluid">
@@ -312,9 +312,9 @@ class="featurette-divider">
 			<span class="text-muted">Secure and user-friendly.</span>
 		</h2>
 		<p class="lead">Users can register and change their passwords. Although this is a test page and password
-																validation has not been implemented yet, rest assured that passwords are hashed using PHP's secure
-																built-in function, hash_password, ensuring no risk of password breach. If a user forgets their
-																password, they can reset it using the PHPMailer library.</p>
+																			validation has not been implemented yet, rest assured that passwords are hashed using PHP's secure
+																			built-in function, hash_password, ensuring no risk of password breach. If a user forgets their
+																			password, they can reset it using the PHPMailer library.</p>
 	</div>
 	<div class="col-md-5">
 		<img src="{{asset('img/password.jpg')}}" alt="" width="500px" height="500px" class="img-fluid">
