@@ -33,5 +33,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_role_new') }}">Create new</a>
+    <!-- <a href="{{ path('app_role_new') }}">Create new</a> -->
+    {% block script %}
+        <script>
+            const ajouter = () => {
+                document.location.href = "{{path('app_role_new')}}";
+            }
+        </script>
+    {% endblock %}
 {% endblock %}

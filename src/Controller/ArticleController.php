@@ -88,7 +88,29 @@ class ArticleController extends AbstractController
             'article' => $article,
             'title' => 'Modify Article',
             'disabled' => '',
-            'form'=>$form->createView()
+            'form' => $form->createView()
         ]);
+    }
+    //! the function search is this for article 
+    #[Route('/article/search', name: 'app_article_search')]
+    public function search(Request $request, EntityManagerInterface $em)
+    {
+        $mot = $request->get('mot');
+        $articles = $em->getRepository(Article::class)->searchMot($mot);
+        $rows = [];
+        foreach ($articles as $article) {
+            $rows[] = [
+                'id' => $article->getId(),
+                'numArticle' => $article->getNumArticle(),
+                'designation' => $article->getDesignation(),
+                'price' => $article->getPrice(),
+            ];
+        }
+        $response = [
+            'rows' => $rows,
+            'count' => count($articles),
+        ];
+        echo json_encode($response);
+        exit;
     }
 }

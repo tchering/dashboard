@@ -6,78 +6,77 @@
 {% block body %}
 
 
-<div class="example-wrapper">
-	<table class="table position-relative">
-		<div class=" d-flex justify-content-between">
-			<a href="javascript:create()" class="btn btn-success btn-sm">Create</a>
-			<a href="javascript:afficher()" class="btn btn-primary btn-sm">Show</a>
-			<a href="javascript:modify()" class="btn btn-success btn-sm">Modify</a>
-			<a href="javascript:supprimer()" class="btn btn-danger btn-sm">Delete</a>
-		</div>
-		<thead>
-			<tr class=" position-sticky">
-				<th></th>
-				<th>LIBELLE</th>
-				<th>URL</th>
-				<th>ICON</th>
-				<th>ROLE</th>
-			</tr>
-		</thead>
+	<div class="example-wrapper">
+		<table class="table position-relative">
+			<div class=" d-flex justify-content-between">
+				<a href="javascript:afficher()" class="btn btn-primary btn-sm">Show</a>
+				<a href="javascript:modify()" class="btn btn-success btn-sm">Modify</a>
+				<a href="javascript:supprimer()" class="btn btn-danger btn-sm">Delete</a>
+			</div>
+			<thead>
+				<tr class=" position-sticky">
+					<th></th>
+					<th>LIBELLE</th>
+					<th>URL</th>
+					<th>ICON</th>
+					<th>ROLE</th>
+				</tr>
+			</thead>
 
 
-		<tbody id="tbody_menu">
-			{{menu|raw}}
-		</tbody>
-		<tfoot>
-			<tr>
-				<th colspan="5" class="text-center">Total:</th>
-			</tr>
-		</tfoot>
-	</table>
-</div>
-{% block script %}
-<script>
-	const ajouter = () => {
-		document.location.href = "{{ path('app_client_add') }}";
-	}
+			<tbody id="tbody_menu">
+				{{menu|raw}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th colspan="5" class="text-center">Total:</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	{% block script %}
+		<script>
+			const ajouter = () => {
+document.location.href = "{{ path('app_menu_edit',{'id':0}) }}";
+}
 
-	const supprimer = () => {
-		let response = confirm('Do you really want to delete this client?');
-		if (response) {
-			let id = getIdChecked('check');
-			if (id == 0) {
-				alert('Please select client you want to delete');
-			} else {
-				document.location.href = `/menu/delete/${id}`;
-			}
-		}
-	}
+const supprimer = () => {
+let response = confirm('Do you really want to delete this client?');
+if (response) {
+let id = getIdChecked('check');
+if (id == 0) {
+alert('Please select client you want to delete');
+} else {
+document.location.href = `/menu/delete/${id}`;
+}
+}
+}
 
 
-	const afficher = () => {
-		const id = getIdChecked('check');
-		if (id == 0) {
-			alert('Please select client to get the detail');
-		} else {
+const afficher = () => {
+const id = getIdChecked('check');
+if (id == 0) {
+alert('Please select client to get the detail');
+} else {
 
-			document.location.href = `/menu/show/${id}`;
-		}
-	}
-	const create= ()=>{
-		document.location.href = "{{path('app_menu_edit',{'id':0})}}";
-	}
+document.location.href = `/menu/show/${id}`;
+}
+}
+const create = () => {
+document.location.href = "{{ path('app_menu_edit',{'id':0}) }}";
+}
 
-	const modify = () => {
-			const id = getIdChecked('check');
-			if (id == 0) {
-				alert('Please selected the menu');
-			} else {
-				// let url = "{{path('app_menu_edit',{'id':'id'})}}";
-				// url = url.replace('id',id);
-				// document.location.href=url;
-				document.location.href = `/menu/edit/${id}`;
-			}
-		}
-</script>
-{% endblock %}
+const modify = () => {
+const id = getIdChecked('check');
+if (id == 0) {
+alert('Please selected the menu');
+} else {
+// let url = "{{path('app_menu_edit',{'id':'id'})}}";
+// url = url.replace('id',id);
+// document.location.href=url;
+document.location.href = `/menu/edit/${id}`;
+}
+}
+		</script>
+	{% endblock %}
 {% endblock %}
