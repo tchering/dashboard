@@ -3,9 +3,8 @@
 {% block title %}Register
 
 {% endblock %}
-{% block stylesheets %}{% endblock %}
-{% block body %}
 
+{% block body %}
 	<div class="container mt-5">
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
@@ -22,8 +21,13 @@
 
 						<div class="form-group">
 							{{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'control-label'}}) }}
-							{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
-							{{ form_errors(registrationForm.plainPassword) }}
+							{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'id': 'password', 'onkeyup': 'validatePassword()'}}) }}
+							<p id="length" class="invalid">Password must be at least 8 characters</p>
+							<p id="uppercase" class="invalid">Password must contain at least one uppercase letter</p>
+							<p id="lowercase" class="invalid">Password must contain at least one lowercase letter</p>
+							<p id="special" class="invalid">Password must contain at least one special character</p>
+							<p id="digit" class="invalid">Password must contain at least one digit</p>
+
 						</div>
 
 						<div class="form-group">
@@ -41,4 +45,5 @@
 			</div>
 		</div>
 	</div>
+
 {% endblock %}
