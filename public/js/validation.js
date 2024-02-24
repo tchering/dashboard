@@ -1,4 +1,7 @@
+//the js validation should match with regex validation of symfony
+
 function validatePassword() {
+  //the function that was called in twig
   var password = document.getElementById(
     "registration_form_plainPassword"
   ).value;
@@ -34,5 +37,19 @@ function validatePassword() {
     document.getElementById("special").style.display = "none";
   } else {
     document.getElementById("special").style.display = "block";
+  }
+  // Check if any errors are being displayed
+  var errors = document.querySelectorAll(
+    "#length, #uppercase, #lowercase, #digit, #special"
+  );
+  var hasError = Array.from(errors).some(function (errorElement) {
+    return errorElement.style.display === "block";
+  });
+
+  // If no errors, display success message
+  if (!hasError) {
+    document.getElementById("success").style.display = "block";
+  } else {
+    document.getElementById("success").style.display = "none";
   }
 }

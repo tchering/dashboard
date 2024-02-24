@@ -42,9 +42,10 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+                    // This is password validation using regex in symfony but however the message will not be displayed in the form because the message is not set in the form instead we have shown the message of js validation in the form
                     new Regex([
                         'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
-                        'message'=>'',
+                        'message' => 'The password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character',
                     ]),
                 ],
             ]);
